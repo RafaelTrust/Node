@@ -1,6 +1,8 @@
+//iniciando a pagina com os dados
+//READ (pegando valores existentes no banco)
 async function getContent(){
     try {
-        const response = await fetch('http://localhost:3000/usr')   
+        const response = await fetch('https://node-vert.vercel.app/usr')   
 
         const data = await response.json()
         show(data)
@@ -8,17 +10,15 @@ async function getContent(){
         console.error(error)
     }
 }
-
 getContent()
 
+//colocando os dados na tabela
 function show(users){
     const listaUsuarios = document.querySelector('#listaUsuarios')
     listaUsuarios.innerHTML = "";
     
     for(let user of users){
-        //
         let usuarioLi;
-        let complemento;
         var dadosForm = ["Nome:", "Email:", "Telefone:", "Anexo:", "Observação:"]
         var dadosInfo = new Array(user.nome, user.email, user.telefone, user.anexo, user.observacao)
         listaUsuarios.innerHTML += `<h3>Usuario: ${user._id}</h3><hr><ul data-id="${user._id}">`
@@ -51,18 +51,16 @@ function show(users){
     }    
 }
 
-function addNaTela(value){
-    document.querySelector('.main').innerHTML += `<li>${value.nome}</li>`
-}
-
+//escutador de eventos de formulario
 document.addEventListener('DOMContentLoaded', (event) => {
     const usuarioForm = document.querySelector('#createUsuario')
-    const usuarioUpdateForm = document.querySelector('#updateUserForm')
+    const usuarioUpdateForm = document.querySelector('#updateUsuario')
 
     usuarioUpdateForm.addEventListener('submit', updateUsuario)
     usuarioForm.addEventListener('submit', createUsuario)
 });
 
+//resgatando dados de formulario de evento
 function reunirInfoForm(){
     return {
         id: event.target.id.value,
@@ -74,11 +72,12 @@ function reunirInfoForm(){
     }
 }
 
+//CREATE (colocando o usuario no banco)
 async function createUsuario(event){
     event.preventDefault();
     let novoUsuario = reunirInfoForm();
     try {
-        const response = await fetch('http://localhost:3000/usr', {
+        const response = await fetch('https://node-vert.vercel.app/usr', {
         method: "POST",
         headers:{
             'Content-Type': 'application/json',
@@ -86,7 +85,7 @@ async function createUsuario(event){
         },
         body: JSON.stringify(novoUsuario)
         }) 
-        const users = await fetch('http://localhost:3000/usr')
+        const users = await fetch('https://node-vert.vercel.app/usr')
         const data = await users.json();
         show(data)
     } catch (error) {
@@ -94,6 +93,8 @@ async function createUsuario(event){
     }
 }
 
+//UPDATE (atualizando o usuario no banco)
+//alimentando formulario de edição
 function editUsuario(user){
     const usuarioUpdate = document.querySelector('#updateUsuario')
     usuarioUpdate.setAttribute("style", "display: block;")
@@ -106,26 +107,27 @@ function editUsuario(user){
     document.querySelector('#upId').value = user._id;
 }
 
+//voltar da edição
 function voltar(){
     document.querySelector('#updateUsuario').setAttribute("style", "display: none;")
 }
 
+//atualizando usuario após o evento
 async function updateUsuario(event){
     event.preventDefault();
     let upUsuario = reunirInfoForm()
     const zerarUpdate = document.querySelector('#updateUsuario')
     zerarUpdate.innerHTML = ""
-    //upUsuario = JSON.stringify(upUsuario)
     console.log(`${upUsuario.name} esta atualizando`)
     try {
-        await fetch(`http://localhost:3000/usr/${upUsuario.id}`, {
+        await fetch(`https://node-vert.vercel.app/usr/${upUsuario.id}`, {
             method: "PATCH",
             body: JSON.stringify(upUsuario),
             headers: {
                 'Content-Type': 'application/json',
             }
         })
-        const users = await fetch('http://localhost:3000/usr')
+        const users = await fetch('https://node-vert.vercel.app/usr')
         const data = await users.json();
         show(data)
     } catch (error) {
@@ -134,12 +136,13 @@ async function updateUsuario(event){
     console.log(`${upUsuario.nome} foi atualizado`)
 }
 
+//DELETE (deletando o usuario)
 async function deleteUsuario(id){
     try {
-        const resposta = await fetch(`http://localhost:3000/usr/${id}`, {
+        const resposta = await fetch(`https://node-vert.vercel.app/usr/${id}`, {
             method: "DELETE"
         })   
-        const users = await fetch('http://localhost:3000/usr')
+        const users = await fetch('https://node-vert.vercel.app/usr')
         const data = await users.json();
         show(data)
     } catch (error) {

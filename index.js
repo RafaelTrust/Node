@@ -24,7 +24,8 @@ app.use('/usr', usuarioRoutes)
 const DB_USR = process.env.DB_USR
 const DB_PASS = encodeURIComponent(process.env.DB_PASS)
 
-mongoose.connect(`mongodb+srv://${DB_USR}:${DB_PASS}@apicluster.i6ure.mongodb.net/bancodaapi?retryWrites=true&w=majority`)
+//mongoose.connect(`mongodb+srv://${DB_USR}:${DB_PASS}@apicluster.i6ure.mongodb.net/bancodaapi?retryWrites=true&w=majority`)
+mongoose.connect(`mongodb+srv://Aero:y*K9IIqWdZFU@apicluster.i6ure.mongodb.net/bancodaapi?retryWrites=true&w=majority`)
 .then(() => {
     console.log('Conectamos com Sucesso ao MongoDB')
     app.listen(3000)
