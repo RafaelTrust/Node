@@ -1,0 +1,184 @@
+<body>
+    <h1>Formulário de Cadastro</h1>
+    <form id="createUsuario">
+        Nome:<br>
+        <input type="text" name="nome"><br>
+        Email:<br>
+        <input type="text" name="email"><br>
+        Telefone:<br>
+        <input type="text" name="telefone"><br>
+        Anexo:<br>
+        <input type="text" name="anexo"><br>
+        Observação:<br>
+        <input type="text" name="observacao"><br>
+        <input type="submit" name="submit" id="submit-new">
+    </form><br>
+    <hr>
+    <div id="listaUsuarios" style="list-style:none;list-style-type:none;">
+
+    </div>
+    <br>
+    <div id="updateUsuario">
+
+    </div>
+</body>
+
+<script>
+    async function getContent(){
+        try {
+            const response = await fetch('http://localhost:3000/usr')   
+
+            const data = await response.json()
+            show(data)
+        } catch (error) {
+            console.error(error)
+        }
+    }
+
+    getContent()
+
+    function show(users){
+        const listaUsuarios = document.querySelector('#listaUsuarios')
+        listaUsuarios.innerHTML = "";
+        
+        for(let user of users){
+            //
+            let usuarioLi;
+            let complemento;
+            var dadosForm = ["Nome:", "Email:", "Telefone:", "Anexo:", "Observação:"]
+            var dadosInfo = new Array(user.nome, user.email, user.telefone, user.anexo, user.observacao)
+            listaUsuarios.innerHTML += `<h3>Usuario: ${user._id}</h3><hr><ul data-id="${user._id}">`
+            for(var i = 0; i < dadosInfo.length; i++){
+                usuarioLi = document.createElement('li');
+                if(i == (dadosInfo.length - 1)){
+                    usuarioLi.innerHTML = `<span>${dadosForm[i]} ${dadosInfo[i]}</span><br>`
+                }else{
+                    usuarioLi.innerHTML = `<span>${dadosForm[i]} ${dadosInfo[i]}</span>`
+                }
+                listaUsuarios.appendChild(usuarioLi);
+            }
+
+            const buttond = document.createElement('button')
+            buttond.dataset.id = user._id
+            buttond.setAttribute("id", `delete-button-${user._id}`)
+            buttond.innerText = "Deletar"
+            buttond.setAttribute("onclick", `deleteUsuario('${user._id}')`)
+            listaUsuarios.appendChild(buttond);
+
+            const buttonu = document.createElement('button')
+            buttonu.dataset.id = user._id
+            buttonu.setAttribute("id", `update-button-${user._id}`)
+            buttonu.innerText = "Editar"
+            var jsonUser = JSON.stringify(user)
+            buttonu.setAttribute("onclick", `editUsuario(${jsonUser})`)
+            listaUsuarios.appendChild(buttonu)
+            
+            listaUsuarios.innerHTML += "</ul><br><hr>"
+        }    
+    }
+
+    function addNaTela(value){
+        document.querySelector('.main').innerHTML += `<li>${value.nome}</li>`
+    }
+    
+    document.addEventListener('DOMContentLoaded', (event) => {
+        const usuarioForm = document.querySelector('#createUsuario')
+        const usuarioUpdateForm = document.querySelector('#updateUsuario')
+
+        usuarioUpdateForm.addEventListener('submit', updateUsuario)
+        usuarioForm.addEventListener('submit', createUsuario)
+    });
+
+    function reunirInfoForm(){
+        return {
+            id: event.target.id.value,
+            nome: event.target.nome.value,
+            email: event.target.email.value,
+            telefone: event.target.telefone.value,
+            anexo: event.target.anexo.value,
+            observacao: event.target.observacao.value
+        }
+    }
+
+    async function createUsuario(event){
+        event.preventDefault();
+        let novoUsuario = reunirInfoForm();
+        try {
+            const response = await fetch('http://localhost:3000/usr', {
+            method: "POST",
+            headers:{
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            },
+            body: JSON.stringify(novoUsuario)
+            }) 
+            const users = await fetch('http://localhost:3000/usr')
+            const data = await users.json();
+            show(data)
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    function editUsuario(user){
+        const usuarioUpdate = document.querySelector('#updateUsuario')
+        const eForm = document.createElement('form')
+        eForm.id = "upadate-form"
+
+        eForm.innerHTML =`
+        <h1> Editando ${user.nome}</h1><br>
+        Nome:<br>
+        <input type="text" name="nome" value="${user.nome}"><br>
+        Email:<br>
+        <input type="text" name="email" value="${user.email}"><br>
+        Telefone:<br>
+        <input type="text" name="telefone" value="${user.telefone}"><br>
+        Anexo:<br>
+        <input type="text" name="anexo" value="${user.anexo}"><br>
+        Observação:<br>
+        <input type="text" name="observacao" value="${user.observacao}"><br>
+        <input type="text" name="id" value="${user._id}" style="display: none;">
+        <input type="submit" name="">`
+
+        usuarioUpdate.append(eForm)
+        //eForm.addEventListener('submit', (event) => updateUsuario(event, user))
+    }
+
+    async function updateUsuario(event){
+        event.preventDefault();
+        let upUsuario = reunirInfoForm()
+        const zerarUpdate = document.querySelector('#updateUsuario')
+        zerarUpdate.innerHTML = ""
+        //upUsuario = JSON.stringify(upUsuario)
+        console.log(`${upUsuario.name} esta atualizando`)
+        try {
+            await fetch(`http://localhost:3000/usr/${upUsuario.id}`, {
+                method: "PATCH",
+                body: JSON.stringify(upUsuario),
+                headers: {
+                    'Content-Type': 'application/json',
+                }
+            })
+            const users = await fetch('http://localhost:3000/usr')
+            const data = await users.json();
+            show(data)
+        } catch (error) {
+            console.log(error)
+        }
+        console.log(`${upUsuario.nome} foi atualizado`)
+    }
+
+    async function deleteUsuario(id){
+        try {
+            const resposta = await fetch(`http://localhost:3000/usr/${id}`, {
+                method: "DELETE"
+            })   
+            const users = await fetch('http://localhost:3000/usr')
+            const data = await users.json();
+            show(data)
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+</script>

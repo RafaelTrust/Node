@@ -1,8 +1,11 @@
 //config inicial
+const cors = require('cors')
 const express = require('express')
 const mongoose = require('mongoose')
 const app = express()
 require('dotenv').config()
+
+app.use(cors())
 
 //forma de ler json / middlewares
 app.use(

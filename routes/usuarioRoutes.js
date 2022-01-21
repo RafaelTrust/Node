@@ -6,7 +6,8 @@ router.post('/', async (req, res) => {
     // req.body {nome: "Rafael", email: "rafaelima@email.com", telefone: "(21) 98888-7777", anexo: "texto.txt", observacao: "foi cadastrado"}
     const { nome, email, telefone, anexo, observacao } = req.body
 
-    if(!nome && !email && !telefone && !anexo && !observacao) {
+    if((!nome && !email && !telefone && !anexo && !observacao)
+    || (nome === "" || email === "" || telefone === "" || anexo === "" || observacao === "")) {
         res.status(422).json({error: 'Todos os campos devem ser preenchidos'})
         return
     }
