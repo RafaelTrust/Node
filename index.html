@@ -1,0 +1,41 @@
+<body>
+    <h1>Formulário de Cadastro</h1>
+    <form id="createUsuario">
+        Nome:<br>
+        <input type="text" name="nome"><br>
+        Email:<br>
+        <input type="text" name="email"><br>
+        Telefone:<br>
+        <input type="text" name="telefone"><br>
+        Anexo:<br>
+        <input type="text" name="anexo"><br>
+        Observação:<br>
+        <input type="text" name="observacao"><br><br>
+        <input type="submit" value="confirmar" name="submit" id="submit-new">
+    </form><br>
+    <hr>
+    <div id="listaUsuarios" style="list-style:none;list-style-type:none;">
+
+    </div>
+    <br>
+    <div id="updateUsuario" style="display: none;">
+        <h1 id="upTitulo"> Editando </h1><br>
+        <form id="updateUserForm">
+            Nome:<br>
+            <input type="text" name="nome" id="upNome"><br>
+            Email:<br>
+            <input type="text" name="email" id="upEmail"><br>
+            Telefone:<br>
+            <input type="text" name="telefone" id="upTelefone"><br>
+            Anexo:<br>
+            <input type="text" name="anexo" id="upAnexo"><br>
+            Observação:<br>
+            <input type="text" name="observacao" id="upObservacao"><br>
+            <input type="text" name="id" style="display: none;" id="upId"><br>
+            <input type="submit" value="confirmar" name="submitUp">
+            <input type="button" value="voltar" onclick="voltar()">
+        </form>
+    </div>
+</body>
+
+<script src="js/controle.js"></script>
