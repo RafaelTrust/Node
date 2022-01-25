@@ -47,6 +47,7 @@ router.post('/', async (req, res) => {
         await Usuario.create(usuario)
 
         res.status(201).json({message: 'Usuario criado com Sucesso!'})
+        return
 
     } catch (error) {
         res.status(500).json({error: error})
@@ -61,6 +62,7 @@ router.get('/', async (req, res) => {
         const usuarios = await Usuario.find()
 
         res.status(200).json(usuarios)
+        return
     } catch (error) {
         res.status(500).json({error: error})
     }
@@ -81,6 +83,7 @@ router.get('/:id', async (req, res) =>{
         }
 
         res.status(200).json(usuario)
+        return
     } catch (error) {
         res.status(500).json({error: error})
     }
@@ -159,8 +162,8 @@ router.patch('/:id', async (req, res) =>{
             res.status(422).json({message: 'Usuario não foi encontrado!'})
             return
         }
-
         res.status(200).json({message: 'Usuario atualizado com sucesso!'})
+        return
     } catch (error) {
         res.status(500).json({error: error})
     }
