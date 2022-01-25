@@ -56,6 +56,7 @@ function show(){
         }else{
             finalPag = usuariosBanco.length
         }
+        let qntMostrando = finalPag - inicialPag
         
         for(var i = inicialPag; i < finalPag; i++ ){
             let nomeArquivo = usuariosBanco[i].anexo.split('/')[2]
@@ -85,7 +86,7 @@ function show(){
         }
         paginacao.innerHTML += `<li class="page-item disabled"><a href="javascript:paginacaoProximo()">Próximo</a></li>`
 
-        document.querySelector('#valoresPaginas').innerHTML = `Mostrando <b>5</b> de um total de <b>${usuariosBanco.length}</b> respostas`
+        document.querySelector('#valoresPaginas').innerHTML = `Mostrando <b>${qntMostrando}</b> de um total de <b>${usuariosBanco.length}</b> respostas`
     }
 }
 
