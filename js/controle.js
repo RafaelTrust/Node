@@ -1,6 +1,6 @@
 //valor da url da api
 //const url ='http://localhost:8877'
-const url = 'https://crudrafaeltrust.herokuapp.com'
+const url = 'https://crudapirafaeltrust.herokuapp.com/'
 var idUsuarios = new Array()
 var usuariosBanco = new Array({})
 var pagina = 1;
