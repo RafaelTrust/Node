@@ -5,7 +5,7 @@ const mongoose = require('mongoose')
 const fileUpload = require('express-fileupload')
 const app = express()
 require('dotenv').config()
-const PORT = process.env.PORT || 8877
+const PORT = process.env.PORT || 3000
 
 app.listen(PORT, () => {
     console.log("Escutando a porta: " + PORT);
