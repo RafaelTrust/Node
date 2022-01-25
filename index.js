@@ -2,6 +2,7 @@
 const cors = require('cors')
 const express = require('express')
 const mongoose = require('mongoose')
+const fileUpload = require('express-fileupload')
 const app = express()
 require('dotenv').config()
 const PORT = process.env.PORT || 8877
@@ -12,6 +13,7 @@ app.listen(PORT, () => {
 
 app.use(cors())
 
+app.use(fileUpload())
 //forma de ler json / middlewares
 app.use(
     express.urlencoded({

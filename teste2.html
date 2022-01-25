@@ -1,0 +1,51 @@
+<!--Rodar servidor local: npx lite-server-->
+<body>
+    <h1>Formulário de Cadastro</h1>
+    <form id="createUsuario">
+        Nome:<br>
+        <input type="text" name="nome"><br>
+        Email:<br>
+        <input type="text" name="email"><br>
+        Telefone:<br>
+        <input type="text" name="telefone"><br>
+        Anexo:<br>
+        <input type="file" name="anexo"><br>
+        Observação:<br>
+        <input type="text" name="observacao"><br><br>
+        <input type="submit" value="confirmar" name="submit" id="submit-new">
+    </form><br>
+    <br>
+    <a href="#" onclick="getContent();" id="recarregar" style="text-decoration: none;">Recarregar Lista</a>
+    <br>
+    <hr>
+    <!--<a href="anexos/vanessa@email.com/Rafael_Lima_Generico.pdf" download> Baixe o Arquivo: Rafael Lima.pdf </a><br>-->
+    <div id="listaUsuarios" style="list-style:none;list-style-type:none;">
+
+
+    </div>
+    <br>
+    <div id="updateUsuario" style="display: none;">
+        <h1 id="upTitulo"> Editando </h1><br>
+        <form id="updateUserForm">
+            Nome:<br>
+            <input type="text" name="nome" id="upNome"><br>
+            Email:<br>
+            <input type="text" name="email" id="upEmail"><br>
+            Telefone:<br>
+            <input type="text" name="telefone" id="upTelefone"><br>
+            Anexo:<br>
+            <input type="button" name="mudar" id="mudarAnexo" value="Inserir" onclick="habilitarAnexo()"><br>
+            <input type="file" name="anexo" id="upAnexo" style="display: none;"><br>
+            Observação:<br>
+            <input type="text" name="observacao" id="upObservacao"><br>
+            <input type="text" name="id" style="display: none;" id="upId"><br>
+            <input type="text" name="emailAntigo" style="display: none;" id="upEmailAntigo"><br>
+            <input type="text" name="anexoAntigo" style="display: none;" id="anexoAntigo"><br>
+            <input type="text" name="boolAnexo" style="display: none;" id="boolAnexo"><br>
+            <input type="submit" value="confirmar" name="submitUp">
+        </form>
+        <input type="button" value="voltar" onclick="voltar()">
+    </div>
+</body>
+
+<script src="js/controle.js"></script>
