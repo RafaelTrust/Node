@@ -35,7 +35,7 @@ const DB_PASS = encodeURIComponent(process.env.DB_PASS)
 mongoose.connect(`mongodb+srv://Aero:y*K9IIqWdZFU@apicluster.i6ure.mongodb.net/bancodaapi?retryWrites=true&w=majority`)
 .then(() => {
     console.log('Conectamos com Sucesso ao MongoDB')
-    //app.listen(3000)
+    app.listen(3000)
 })
 .catch((err) => console.log(err))
 
