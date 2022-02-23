@@ -17,9 +17,6 @@ const options = {
         },
         servers: [
             {
-                url: "http://localhost:8877"
-            },
-            {
                 url: "https://crudapirafaeltrust.herokuapp.com"
             }
         ]
