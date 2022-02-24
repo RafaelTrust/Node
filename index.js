@@ -5,32 +5,13 @@ const mongoose = require('mongoose')
 const fileUpload = require('express-fileupload')
 
 const swaggerUI = require('swagger-ui-express')
-const swaggerJsDoc = require('swagger-jsdoc')
-
-const options = {
-    definition: {
-        openapi: "3.0.0",
-        info: {
-            title: "Documentação do RafaelAPI",
-            version: "1.0.0",
-            description: "documentação simples usando openAPI"
-        },
-        servers: [
-            {
-                url: "https://crudapirafaeltrust.herokuapp.com"
-            }
-        ]
-    },
-    apis: ["./routes/*.js"]
-}
-
-const specs = swaggerJsDoc(options)
+const apiSchema = require('./api.schema.json')
 
 const app = express()
 require('dotenv').config()
 const PORT = process.env.PORT || 8877
 
-app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(specs))
+app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(apiSchema))
 
 app.listen(PORT, () => {
     console.log("Escutando a porta: " + PORT);

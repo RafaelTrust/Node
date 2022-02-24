@@ -1,0 +1,120 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Documentação do RafaelAPI",
+        "version": "1.0.0",
+        "description": "documentação simples usando openAPI"
+    },
+    "servers": [
+        {
+            "url": "https://crudapirafaeltrust.herokuapp.com/",
+            "description": "Servidor de produção"
+        },
+        {
+            "url": "http://localhost:8877/",
+            "description": "Servidor local de testes"
+        }
+    ],
+    "paths": {
+        "/usr":{
+            "get":{
+                "description": "Recupera lista de usuarios",
+                "operationId": "listUsers",
+                "summary": "Lista de Usuarios",
+                "responses": {
+                    "200": {
+                        "description": "resultado de usuarios",
+                        "content": {
+                            "application/json":{
+                                "schema":{
+                                    "$ref": "#/components/schemas/ArrayUsuario"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/usr/{userid}":{
+            "get":{
+                "description": "Recupera um usuario por vês"
+            }
+        }
+    },
+    "components": {
+        "schemas":{
+            "Usuario":{
+               "type": "object",
+               "discriminator": {
+                   "propertyName": "tipoUsuario"
+               },
+               "properties": {
+                   "nome":{
+                       "type":"string",
+                       "description": "Nome de usuario"
+                   },
+                   "email":{
+                       "type":"string",
+                       "description": "Email do usuario"
+                   },
+                   "telefone":{
+                       "type": "string",
+                       "description": "Telefone do usuario"
+                   },
+                   "anexo":{
+                       "type": "string",
+                       "description": "Anexo de documentos do usuario"
+                   },
+                   "descricao":{
+                       "type": "string",
+                       "description": "Descrição do usuario"
+                   }
+               }
+            },
+            "ArrayUsuario":{
+                "type":"array",
+                "items":{
+                    "$ref": "#/components/schemas/Usuario"
+                },
+                "example": [
+                    {
+                        "nome": "Rafael Lima",
+                        "email": "rafaelima@email.com",
+                        "telefone": "(21) 99445-5566",
+                        "anexo": "file.pdf",
+                        "descricao": "Usuario novo"
+                    },
+                    {
+                        "nome": "Gustavo Lima",
+                        "email": "gustavolima@email.com",
+                        "telefone": "(21) 99445-7788",
+                        "anexo": "file.pdf",
+                        "descricao": "Usuario novo"
+                    }
+                ]
+            }
+        },
+        "examples": {
+            "Rafael":{
+                "summary": "Exemplo do usuario Rafael",
+                "value":{
+                    "nome": "Rafael Lima",
+                    "email": "rafaelima@email.com",
+                    "telefone": "(21) 99445-5566",
+                    "anexo": "file.pdf",
+                    "descricao": "Usuario novo"
+                }
+            },
+            "Gustavo":{
+                "summary": "Exemplo do usuario Gustavo",
+                "value":{
+                    "nome": "Gustavo Lima",
+                    "email": "gustavolima@email.com",
+                    "telefone": "(21) 99445-7788",
+                    "anexo": "file.pdf",
+                    "descricao": "Usuario novo"
+                }
+            }
+        }
+    }
+}

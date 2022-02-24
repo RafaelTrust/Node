@@ -3,66 +3,6 @@ const Usuario = require('../models/Usuario')
 const rimraf = require('rimraf')
 const fs = require('fs')
 
-/**
- * @swagger
- * components:
- *   schemas:
- *     Usuarios:
- *       type: object
- *       required:
- *         - nome
- *         - email
- *       properties:
- *         id:
- *           type: string
- *           description: gerado automaticamente
- *         nome:
- *           type: string 
- *           description: o nome do usuario
- *         email:
- *           type: string
- *           description: o email do usuario
- *       exemple:
- *           id: d5fE_asz
- *           nome: Rafael Lima
- *           email: rafael@email.com
- */
-
-/**
- * @swagger
- * /usr:
- *   get:
- *     summary: Retorna uma lista de todos os usuarios
- *     responses:
- *       200:
- *         description: A lista de usuarios
- *         content:
- *           application/json:
- *             schema:
- *               type: array
- *               items: 
- *                 type: object
- *                 properties:  
- *                   _id:
- *                     type: integer
- *                     format: int32
- *                   nome:
- *                     type: string
- *                     description: o nome do usuario
- *                   email:
- *                     type: string
- *                     description: o email do usuario
- *                   telefone:
- *                     type: string
- *                     description: o email do usuario
- *                   anexo:
- *                     type: string
- *                     description: o email do usuario
- *                   observacao:
- *                     type: string
- *                     description: o email do usuario
- */
-
 //Create
 router.post('/', async (req, res) => {
     // req.body {nome: "Rafael", email: "rafaelima@email.com", telefone: "(21) 98888-7777", anexo: "texto.txt", observacao: "foi cadastrado"}
